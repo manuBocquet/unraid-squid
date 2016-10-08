@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER manu <manu.bocquet@gmail.com>
 
-ENV APTLIST="squid3 vi" 
+ENV APTLIST="squid3 vim" 
 
 # install main packages
 RUN apt-get update -q && \
