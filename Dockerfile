@@ -1,8 +1,11 @@
 FROM debian:jessie
 MAINTAINER manu <manu.bocquet@gmail.com>
 
-RUN apt-get update && apt-get install -y \
-	squid3
+ENV APTLIST="squid3" 
+
+# install main packages
+RUN apt-get update -q && \
+apt-get install $APTLIST -qy && \
 
 # cleanup
 apt-get clean -y && \
