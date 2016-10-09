@@ -15,8 +15,8 @@ RUN mkdir -p /config/log
 RUN sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
 ADD ./init.sh /config/init.sh
 RUN chmod 700 /config/init.sh
-RUN ln /etc/squid3/squid3.conf /config/etc/squid3.conf
-RUN ln /var/log/squid3 /config/log
+RUN ln -s /etc/squid3/squid3.conf /config/etc/squid3.conf
+RUN ln -s /var/log/squid3 /config/log
 
 CMD [ "/config/init.sh" ]
 
