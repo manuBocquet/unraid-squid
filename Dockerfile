@@ -17,6 +17,7 @@ ADD ./init.sh /config/init.sh
 RUN chmod 700 /config/init.sh
 RUN chmod 700 /root/test.sh && /root/test.sh 
 RUN ln -s /etc/squid3/squid3.conf /config/squid3.conf
+ENV BOOTSTRAP "/config/init.sh"
 
 CMD [ "/config/init.sh" ]
 
