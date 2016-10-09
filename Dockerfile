@@ -10,10 +10,10 @@ apt-get install $APTLIST -qy && \
 # cleanup
 apt-get clean -y && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
+RUN mkdir /config 
 RUN sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
 ADD ./test.sh /root/test.sh
-RUN /root/test.sh
+RUN chmod 700 /root/test.sh && /root/test.sh 
 
 # ports and volumes
 EXPOSE 3138
