@@ -10,14 +10,13 @@ apt-get install $APTLIST -qy && \
 # cleanup
 apt-get clean -y && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN mkdir /config 
+RUN mkdir -p /config/etc
+RUN mkdir -p /config/log
 RUN sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
-ADD ./test.sh /root/test.sh
 ADD ./init.sh /config/init.sh
 RUN chmod 700 /config/init.sh
-RUN chmod 700 /root/test.sh && /root/test.sh 
-RUN ln -s /etc/squid3/squid3.conf /config/squid3.conf
-ENV BOOTSTRAP "/config/init.sh"
+RUN ln /etc/squid3/squid3.conf /config/etc/squid3.conf
+RUN ln /var/log/squid3 /config/log
 
 CMD [ "/config/init.sh" ]
 

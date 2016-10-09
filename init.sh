@@ -1,3 +1,3 @@
 #!/bin/bash
 
-service squid3 start
+/usr/sbin/squid3 -N -f /etc/squid3/squid.conf
