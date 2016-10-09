@@ -21,7 +21,7 @@ RUN ln /var/log/squid3 /config/log
 CMD [ "/config/init.sh" ]
 
 # ports and volumes
-EXPOSE 3138
+EXPOSE 3128
 VOLUME [ "/config" ]
 
 
