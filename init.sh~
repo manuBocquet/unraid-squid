@@ -17,5 +17,4 @@ if [ -d "/var/log/squid3" ]; then
 	mv /var/log/squid3 /config/log && \
 	ln -s /config/log /var/log/squid3
 fi
-
 /usr/sbin/squid3 -N

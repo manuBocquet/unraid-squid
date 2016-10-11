@@ -12,12 +12,13 @@ apt-get clean -y && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir /config
-RUN sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
+#RUN sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
+#RUN cp /etc/squid3/squid.conf /config/etc
+#RUN sed -i -e's/.*access_log daemon.*/access_log daemon:\/config\/log\/access.log squid/' /config/etc/squid.conf
+ADD ./init.sh /config/init.sh
+RUN chmod 700 /config/init.sh
 
-ADD ./init.sh /etc/my_init.sh
-RUN chmod 700 /etc/my_init.sh
-
-CMD [ "/etc/my_init.sh" ]
+CMD [ "/config/init.sh" ]
 
 # ports and volumes
 EXPOSE 3128
