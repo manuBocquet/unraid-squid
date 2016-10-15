@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER manu <manu.bocquet@gmail.com>
 
-ENV APTLIST="squid3" 
+ENV APTLIST="squid3 rsyslog" 
 
 # install main packages
 RUN apt-get update -q && \
