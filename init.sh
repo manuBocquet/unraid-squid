@@ -28,4 +28,7 @@ fi
 
 # Launch Squid3
 
+sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
+echo "access_log syslog:local2.info squid" > /etc/squid3/squid.conf
+
 /usr/sbin/squid3 -N

@@ -12,7 +12,9 @@ apt-get clean -y && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir /config
-RUN sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
+
+ADD ./rsyslog.conf /etc/rsyslog.conf
+RUN sed -i -e's/SERVER/${SYSLOG_ADDR}/' /etc/rsyslog.conf 
 
 ADD ./init.sh /etc/my_init.sh
 RUN chmod 700 /etc/my_init.sh
