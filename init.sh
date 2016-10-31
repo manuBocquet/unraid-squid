@@ -28,7 +28,9 @@ fi
 
 # Launch Squid3
 
+env > /root/env.txt
+
 sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
-echo "access_log syslog:local2.info squid" > /etc/squid3/squid.conf
+echo "access_log syslog:local2.info squid" >> /etc/squid3/squid.conf
 
 /usr/sbin/squid3 -N
