@@ -15,6 +15,7 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir /config
 RUN mkdir /etc/service/squid3
 ADD ./init.sh /etc/service/squid3/run
+RUN chmod 755 /etc/service/squid3/run
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
