@@ -44,7 +44,7 @@ fi
 
 env > /config/log/env.txt
 
-sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
+#sed -i -e's/.*ulimit.*//' /etc/init.d/squid3
 #echo "access_log syslog:local2.info squid" >> /etc/squid3/squid.conf
 
 exec /usr/sbin/squid3 -N >/config/log/squid3.log 2>&1
