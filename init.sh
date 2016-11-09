@@ -1,21 +1,22 @@
 #!/bin/sh
 
-function link {
-	source = "$1"
-	dest = "$2"
-	if [ -f "${source}" ] || [ -d "${source}" ] ; then
-		if [ ! -e "${dest}" ] ; then	
-			if [ -f "${source}" ]; then
-				rpath=$(dirname "${dest}")
-				if [ ! -d "${rpath}" ]; then
-					mkdir -p "${rpath}"
-				fi
-			mv "${source}" "${dest}"
-		else
-			rm -rf "${source}"
-		fi		
-	fi
-	ln -s "${dest}" "${source}"	
+link () {
+        source="$1"
+        dest="$2"
+        if [ -f "${source}" ] || [ -d "${source}" ] ; then
+                if [ ! -e "${dest}" ] ; then
+                        if [ -f "${source}" ]; then
+                                rpath=$(dirname "${dest}")
+                                if [ ! -d "${rpath}" ]; then
+                                        mkdir -p "${rpath}"
+                                fi
+                        fi
+                        mv "${source}" "${dest}"
+                else
+                        rm -rf "${source}"
+                fi
+        fi
+        ln -s "${dest}" "${source}"
 }
 
 # /etc/squid/squid.conf
