@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.19
 MAINTAINER manu <manu.bocquet@gmail.com>
 
-ENV APTLIST="squid3" 
+ENV APTLIST="squid3 gawk" 
 ENV SYSLOG_ADDR="192.168.1.5:514"
 
 # install main packages
@@ -12,6 +12,8 @@ apt-get install $APTLIST -qy && \
 apt-get clean -y && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN curl -o /usr/bin/scalar.awk https://raw.githubusercontent.com/horsley/squid-log-analyse/master/scalar.awk
+RUN chmod 755 /usr/bin/scalar.awk
 RUN mkdir /config
 RUN mkdir /etc/service/squid3
 ADD ./init.sh /etc/service/squid3/run
