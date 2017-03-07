@@ -20,17 +20,20 @@ link () {
 }
 
 # /etc/squid/squid.conf
-link "/etc/squid/squid.conf" "/config/etc/squid.conf"
+link "/etc/squid/squid.conf" "/config/squid.conf"
+link "/var/spool/cron/crontabs/root" "/config/root_crontab"
+link "/root/proxy_cron.sh" "/config/proxy_cron.sh"
 
 # /etc/syslog-ng/syslog-ng.conf
-link "/etc/syslog-ng/syslog-ng.conf" "/config/etc/syslog-ng.conf"
-
-# Set /var/log/squid
-link "/var/log/squid" "/config/log"
+link "/etc/syslog-ng/syslog-ng.conf" "/config/syslog-ng.conf"
 
 # Launch Squid3
 if [ -e "/var/run/squid.pid" ]; then
 	rm "/var/run/squid.pid"
 fi
 
-exec /usr/sbin/squid3 -N >/config/log/squid_cmd.log 2>&1
+if [ -r "/config/proxy_cron" ] ; then
+	crontab /config/proxy_cron
+fi
+	
+exec /usr/sbin/squid3 -N 

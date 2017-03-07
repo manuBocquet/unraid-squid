@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.19
 MAINTAINER manu <manu.bocquet@gmail.com>
 
-ENV APTLIST="squid3 gawk" 
+ENV APTLIST="squid3 gawk wget" 
 ENV SYSLOG_ADDR="192.168.1.5:514"
 
 # install main packages
@@ -14,16 +14,22 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN curl -o /usr/bin/scalar.awk https://raw.githubusercontent.com/horsley/squid-log-analyse/master/scalar.awk
 RUN chmod 755 /usr/bin/scalar.awk
+
 RUN mkdir /config
 RUN mkdir /etc/service/squid3
 ADD ./init.sh /etc/service/squid3/run
 RUN chmod 755 /etc/service/squid3/run
 
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+# Export 
+VOLUME [ "/var/log/squid" ]
+VOLUME [ "/config" ]
+
+ADD ./proxy_cron /var/spool/cron/crontabs/root
+ADD ./proxy_cron.sh /root/proxy_cron.sh
+RUN chmod 755 /root/proxy_cron.sh
 
 # ports and volumes
 EXPOSE 3128
-VOLUME [ "/config" ]
 
-
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
